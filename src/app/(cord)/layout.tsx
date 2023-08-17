@@ -1,4 +1,5 @@
 import CordIntegration from "./CordIntegration";
+import "./cord.css";
 
 export async function getData() {
   // @ts-ignore I need this here, so it is no included in the client bundle
@@ -55,7 +56,7 @@ export async function getData() {
       },
     },
   ];
-  const userIndex = Math.round(Math.random() * (users.length-1));
+  const userIndex = Math.round(Math.random() * (users.length - 1));
   const user = users[userIndex];
 
   const clientAuthToken = getClientAuthToken(CORD_APP_ID, CORD_SECRET, {
