@@ -1,6 +1,9 @@
 import { getClientAuthToken } from "@cord-sdk/server";
 import CordIntegration from "./CordIntegration";
 import "./cord.css";
+import "./cord-app.css";
+
+const ORG_ID = "samplecord";
 
 export async function getData() {
   const { CORD_SECRET, CORD_APP_ID } = process.env;
@@ -15,44 +18,49 @@ export async function getData() {
     {
       // The user ID can be any identifier that makes sense to your application.
       // As long as it's unique per-user, Cord can use it to represent your user.
-      user_id: "severusatreides",
+      user_id: "tom",
 
       // Same as above. An organization ID can be any unique string. Organizations
       // are groups of users.
-      organization_id: "starpotterdunewars",
+      organization_id: ORG_ID,
 
       // By supplying the  `user_details` object, you can create the user in
       // Cord's backend on-the-fly. No need to pre-sync your users.
       user_details: {
-        email: "sevvy@arrakis.spice",
-        name: "Severus Atreides",
+        email: `sample-template-user1@cord.com`,
+        name: "Tom",
+        profilePictureURL: "https://app.cord.com/static/Tom.png",
       },
     },
     {
-      user_id: "minervahalleck",
-      organization_id: "starpotterdunewars",
+      user_id: "myhoa",
+      organization_id: ORG_ID,
       user_details: {
-        email: "catlady@tattoine.gov",
-        name: "Minerva Halleck",
+        email: `sample-template-user2@cord.com`,
+        name: "My Hoa",
+        profilePictureURL: "https://app.cord.com/static/MyHoa.png",
       },
     },
     {
-      user_id: "hermioneorgana",
-      organization_id: "starpotterdunewars",
+      user_id: "khadija",
+      organization_id: ORG_ID,
       user_details: {
-        email: "hermi1979@starfleet.org.terra",
-        name: "Hermione Organa",
+        email: `sample-template-user3@cord.com`,
+        name: "Khadija",
+        profilePictureURL: "https://app.cord.com/static/Khadija.png",
       },
     },
     {
-      user_id: "jarjarmarvolo",
-      organization_id: "starpotterdunewars",
+      user_id: "Jack",
+      organization_id: ORG_ID,
       user_details: {
-        email: "meesa@lowkey.sith",
-        name: "Jar Jar Marvolo",
+        email: `sample-template-user4@cord.com`,
+        name: "Jack",
+        profilePictureURL: "https://app.cord.com/static/Jackson.png",
       },
     },
   ];
+
   const userIndex = Math.round(Math.random() * (users.length - 1));
   const user = users[userIndex];
 
