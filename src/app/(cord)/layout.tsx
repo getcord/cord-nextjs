@@ -1,11 +1,8 @@
+import { getClientAuthToken } from "@cord-sdk/server";
 import CordIntegration from "./CordIntegration";
 import "./cord.css";
 
 export async function getData() {
-  // @ts-ignore I need this here, so it is no included in the client bundle
-  // It should not be needed because remix does Server Code Pruning.
-  const { getClientAuthToken } = await import("@cord-sdk/server");
-
   const { CORD_SECRET, CORD_APP_ID } = process.env;
   if (!CORD_SECRET || !CORD_APP_ID) {
     console.error(
