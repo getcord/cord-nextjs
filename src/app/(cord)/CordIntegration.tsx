@@ -17,7 +17,7 @@ const CordIntegration = ({
         </CordProvider>
       ) : (
         <section className="cord-setup">
-          <p>Welcome to Cord&apos;s remix starter template</p>
+          <p>Welcome to Cord&apos;s Next starter template</p>
           <h1>Time to get your API key</h1>
           <ol>
             <li>
@@ -29,7 +29,7 @@ const CordIntegration = ({
             <pre>{`CORD_APP_ID=<Application ID>
 CORD_SECRET=<Secret>`}</pre>
             <li>
-              Restart your remix <pre>npm run dev</pre>
+              Restart your Next <pre>npm run dev</pre>
             </li>
           </ol>
         </section>

@@ -4,7 +4,7 @@ import { PagePresence, Thread } from "@cord-sdk/react";
 
 /**
  * We are adding page presence and a thread.
- * You can add more collaboration feature, see [components](https://docs.cord.com/components).
+ * You can add more collaboration features such as comments or multiple cursors! See our [components](https://docs.cord.com/components).
  **/
 export default function ClientThread() {
   return (
@@ -45,7 +45,12 @@ function CordInfo() {
             ,&nbsp;
           </li>
           <li>
-            <a href="https://docs.cord.com/rest-apis">REST APIs</a>, and{" "}
+            manage all the data for you,&nbsp;
+          </li>
+          <li>
+            <a href="https://docs.cord.com/rest-apis">REST APIs</a>, and{" "}&nbsp;
+          </li>
+          <li>
             <a href="https://docs.cord.com/reference/events-webhook">
               webhook events
             </a>
