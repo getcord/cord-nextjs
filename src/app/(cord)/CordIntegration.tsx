@@ -29,7 +29,7 @@ const CordIntegration = ({
             <pre>{`CORD_APP_ID=<Application ID>
 CORD_SECRET=<Secret>`}</pre>
             <li>
-              Restart your Next <pre>npm run dev</pre>
+              Restart your Next app<pre>npm run dev</pre>
             </li>
           </ol>
         </section>
