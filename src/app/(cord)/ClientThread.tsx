@@ -1,15 +1,18 @@
 "use client";
 
-import { PagePresence, Thread } from "@cord-sdk/react";
+import { LiveCursors, PagePresence, Thread } from "@cord-sdk/react";
+import { useMemo } from "react";
 
 /**
  * We are adding page presence and a thread.
  * You can add more collaboration features, see our [components](https://docs.cord.com/components).
  **/
 export default function ClientThread() {
+  const location = useMemo(() => ({ location: window.location.pathname }), []);
   return (
     <div className="cord-app">
-      <PagePresence />
+      <LiveCursors location={location} />
+      <PagePresence location={location} />
       <h1>Let&apos;s get Cordy!</h1>
       <Thread threadId="a-first-conversation" />
       <CordInfo />
