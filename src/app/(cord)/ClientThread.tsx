@@ -8,7 +8,7 @@ import { useMemo } from "react";
  * You can add more collaboration features, see our [components](https://docs.cord.com/components).
  **/
 export default function ClientThread() {
-  const location = useMemo(() => ({ location: window.location.pathname }), []);
+  const location = useMemo(() => ({ location: window?.location.pathname }), []);
   return (
     <div className="cord-app">
       <LiveCursors location={location} />
