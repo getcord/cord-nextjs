@@ -1,18 +1,23 @@
 "use client";
 
 import { LiveCursors, PagePresence, Thread } from "@cord-sdk/react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 /**
  * We are adding page presence and a thread.
  * You can add more collaboration features, see our [components](https://docs.cord.com/components).
  **/
 export default function ClientThread() {
-  const location = useMemo(() => ({ location: window?.location.pathname }), []);
+  const [location, setLocation] = useState<null | { location: string }>();
+  useEffect(() => setLocation({ location: window?.location.pathname }), []);
   return (
     <div className="cord-app">
-      <LiveCursors location={location} />
-      <PagePresence location={location} />
+      {location && (
+        <>
+          <LiveCursors location={location} />
+          <PagePresence location={location} />
+        </>
+      )}
       <h1>Let&apos;s get Cordy!</h1>
       <Thread threadId="a-first-conversation" />
       <CordInfo />
@@ -48,7 +53,7 @@ function CordInfo() {
             ,&nbsp;
           </li>
           <li>
-            <a href="https://docs.cord.com/rest-apis">REST APIs</a>, and{" "}&nbsp;
+            <a href="https://docs.cord.com/rest-apis">REST APIs</a>, and &nbsp;
           </li>
           <li>
             <a href="https://docs.cord.com/reference/events-webhook">
