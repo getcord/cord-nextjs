@@ -1,5 +1,6 @@
 "use client";
 
+import { CORD_USER_COOKIE } from "@/consts";
 import { LiveCursors, PagePresence, Thread } from "@cord-sdk/react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -7,17 +8,26 @@ import { useEffect, useMemo, useState } from "react";
  * We are adding page presence and a thread.
  * You can add more collaboration features, see our [components](https://docs.cord.com/components).
  **/
-export default function ClientThread() {
+export default function ClientThread({
+  users,
+  userIndex,
+}: {
+  users: string[];
+  userIndex: number;
+}) {
   const [location, setLocation] = useState<null | { location: string }>();
   useEffect(() => setLocation({ location: window?.location.pathname }), []);
   return (
     <div className="cord-app">
-      {location && (
-        <>
-          <LiveCursors location={location} />
-          <PagePresence location={location} />
-        </>
-      )}
+      <div className="row">
+        <ChangeUser users={users} userIndex={userIndex} />
+        {location && (
+          <>
+            <LiveCursors location={location} />
+            <PagePresence location={location} />
+          </>
+        )}
+      </div>
       <h1>Let&apos;s get Cordy!</h1>
       <Thread threadId="a-first-conversation" />
       <CordInfo />
@@ -64,5 +74,33 @@ function CordInfo() {
         </ul>
       </div>
     </div>
+  );
+}
+
+function ChangeUser({
+  users,
+  userIndex,
+}: {
+  users: string[];
+  userIndex: number;
+}) {
+  return (
+    <label className="change-user">
+      Change user
+      <select
+        value={users[userIndex]}
+        onChange={(e) => {
+          const newUserID = e.target.value;
+          document.cookie = `${CORD_USER_COOKIE}=${newUserID};`;
+          document.location.reload();
+        }}
+      >
+        {users.map((user, idx) => (
+          <option key={idx} value={user}>
+            {user}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }
