@@ -41,6 +41,9 @@ function CordInfo() {
       <p className="get-started">
         Edit <code>app/_cord._index.tsx</code>
       </p>
+      <p>
+        Try opening this page in multiple windows, side by side.
+      </p>
       <div className="cord-CTA">
         <a href="https://docs.cord.com">View our docs</a> or{" "}
         <a className="secondary" href="https://console.cord.com">
