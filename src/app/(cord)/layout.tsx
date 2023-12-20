@@ -1,15 +1,15 @@
-import { getClientAuthToken } from "@cord-sdk/server";
+import { getClientAuthToken, getServerAuthToken } from "@cord-sdk/server";
 import { cookies } from "next/headers";
 import CordIntegration from "./CordIntegration";
 import "./cord.css";
 import "./cord-app.css";
-import { CORD_USER_COOKIE, ORG_ID, USERS } from "@/consts";
+import { CORD_USER_COOKIE, GROUP_ID, USERS } from "@/consts";
 
 export async function getData() {
   const { CORD_SECRET, CORD_APP_ID } = process.env;
   if (!CORD_SECRET || !CORD_APP_ID) {
     console.error(
-      "Missing CORD_SECRET or CORD_ORD_ID env variable. Get it on console.cord.com and add it to .env",
+      "Missing CORD_SECRET or CORD_APP_ID env variable. Get it on console.cord.com and add it to .env",
     );
     return { clientAuthToken: null, users: [], userIndex: -1 };
   }
@@ -19,19 +19,51 @@ export async function getData() {
     0,
     USERS.findIndex((user) => user.user_id === userIdCookie),
   );
-  const user = USERS[userIndex];
 
+  await createAndPopulateGroup();
+  const user = USERS[userIndex];
   const clientAuthToken = getClientAuthToken(CORD_APP_ID, CORD_SECRET, {
     ...user,
-    // By supplying the `organization_details` object, just like the user,
-    // Cord will create the organization on-the-fly.
-    organization_details: {
-      name: user.organization_id,
-    },
   });
   return {
     clientAuthToken,
   };
+}
+
+/**
+ * Creates a group and adds all users to it.
+ *
+ * In a real app, you would do this only once.
+ **/
+async function createAndPopulateGroup() {
+  const { CORD_SECRET, CORD_APP_ID } = process.env;
+  if (!CORD_SECRET || !CORD_APP_ID) {
+    console.error(
+      "Missing CORD_SECRET or CORD_APP_ID env variable. Get it on console.cord.com and add it to .env",
+    );
+    return;
+  }
+  const serverAuthToken = getServerAuthToken(CORD_APP_ID, CORD_SECRET);
+
+  const groupBody = JSON.stringify({ name: GROUP_ID });
+  await fetch(`https://api.cord.com/v1/groups/${GROUP_ID}`, {
+    method: "PUT",
+    body: groupBody,
+    headers: {
+      Authorization: `Bearer ${serverAuthToken}`,
+      "Content-Type": "application/json",
+    },
+  });
+  // assign user to group
+  const memberBody = JSON.stringify({ add: USERS.map((user) => user.user_id) });
+  await fetch(`https://api.cord.com/v1/groups/${GROUP_ID}/members`, {
+    method: "POST",
+    body: memberBody,
+    headers: {
+      Authorization: `Bearer ${serverAuthToken}`,
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 export default async function CordLayout({

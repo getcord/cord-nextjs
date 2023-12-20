@@ -1,6 +1,6 @@
 "use client";
 
-import { CORD_USER_COOKIE } from "@/consts";
+import { CORD_USER_COOKIE, GROUP_ID } from "@/consts";
 import { LiveCursors, PagePresence, Thread } from "@cord-sdk/react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -23,13 +23,13 @@ export default function ClientThread({
         <ChangeUser users={users} userIndex={userIndex} />
         {location && (
           <>
-            <LiveCursors location={location} />
-            <PagePresence location={location} />
+            <LiveCursors groupId={GROUP_ID} location={location} />
+            <PagePresence groupId={GROUP_ID} location={location} />
           </>
         )}
       </div>
       <h1>Let&apos;s get Cordy!</h1>
-      <Thread threadId="a-first-conversation" />
+      <Thread threadId="a-sample-conversation" groupId={GROUP_ID} />
       <CordInfo />
     </div>
   );
@@ -41,9 +41,7 @@ function CordInfo() {
       <p className="get-started">
         Edit <code>app/_cord._index.tsx</code>
       </p>
-      <p>
-        Try opening this page in multiple windows, side by side.
-      </p>
+      <p>Try opening this page in multiple windows, side by side.</p>
       <div className="cord-CTA">
         <a href="https://docs.cord.com">View our docs</a> or{" "}
         <a className="secondary" href="https://console.cord.com">
