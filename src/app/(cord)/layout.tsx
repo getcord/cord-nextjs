@@ -31,7 +31,7 @@ async function getData() {
 }
 
 /**
- * Creates a group and adds all users to it.
+ * Creates a group and users and adds all users to it.
  *
  * In a real app, you would do this only once.
  **/
@@ -54,6 +54,22 @@ async function createAndPopulateGroup() {
       "Content-Type": "application/json",
     },
   });
+
+  // creates users
+  await Promise.all(
+    USERS.map((user) => {
+      const userBody = JSON.stringify(user.user_details);
+      fetch(`https://api.cord.com/v1/users/${user.user_id}`, {
+        method: "PUT",
+        body: userBody,
+        headers: {
+          Authorization: `Bearer ${serverAuthToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+    })
+  );
+
   // assign user to group
   const memberBody = JSON.stringify({ add: USERS.map((user) => user.user_id) });
   await fetch(`https://api.cord.com/v1/groups/${GROUP_ID}/members`, {
