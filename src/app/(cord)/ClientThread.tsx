@@ -64,7 +64,7 @@ function CordInfo() {
             ,&nbsp;
           </li>
           <li>
-            <a href="https://docs.cord.com/rest-apis">REST APIs</a>, and &nbsp;
+            <a href="https://docs.cord.com/rest-apis">REST APIs</a>, and&nbsp;
           </li>
           <li>
             <a href="https://docs.cord.com/reference/events-webhook">
