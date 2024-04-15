@@ -6,10 +6,10 @@ import "./cord-app.css";
 import { CORD_USER_COOKIE, GROUP_ID, USERS } from "@/consts";
 
 async function getData() {
-  const { CORD_SECRET, CORD_APP_ID } = process.env;
-  if (!CORD_SECRET || !CORD_APP_ID) {
+  const { CORD_SECRET, CORD_PROJECT_ID } = process.env;
+  if (!CORD_SECRET || !CORD_PROJECT_ID) {
     console.error(
-      "Missing CORD_SECRET or CORD_APP_ID env variable. Get it on console.cord.com and add it to .env",
+      "Missing CORD_SECRET or CORD_PROJECT_ID env variable. Get it on console.cord.com and add it to .env"
     );
     return { clientAuthToken: null, users: [], userIndex: -1 };
   }
@@ -17,12 +17,12 @@ async function getData() {
   const userIdCookie = cookies().get(CORD_USER_COOKIE)?.value;
   let userIndex = Math.max(
     0,
-    USERS.findIndex((user) => user.user_id === userIdCookie),
+    USERS.findIndex((user) => user.user_id === userIdCookie)
   );
 
   await createAndPopulateGroup();
   const user = USERS[userIndex];
-  const clientAuthToken = getClientAuthToken(CORD_APP_ID, CORD_SECRET, {
+  const clientAuthToken = getClientAuthToken(CORD_PROJECT_ID, CORD_SECRET, {
     ...user,
   });
   return {
@@ -36,14 +36,14 @@ async function getData() {
  * In a real app, you would do this only once.
  **/
 async function createAndPopulateGroup() {
-  const { CORD_SECRET, CORD_APP_ID } = process.env;
-  if (!CORD_SECRET || !CORD_APP_ID) {
+  const { CORD_SECRET, CORD_PROJECT_ID } = process.env;
+  if (!CORD_SECRET || !CORD_PROJECT_ID) {
     console.error(
-      "Missing CORD_SECRET or CORD_APP_ID env variable. Get it on console.cord.com and add it to .env",
+      "Missing CORD_SECRET or CORD_PROJECT_ID env variable. Get it on console.cord.com and add it to .env"
     );
     return;
   }
-  const serverAuthToken = getServerAuthToken(CORD_APP_ID, CORD_SECRET);
+  const serverAuthToken = getServerAuthToken(CORD_PROJECT_ID, CORD_SECRET);
 
   const groupBody = JSON.stringify({ name: GROUP_ID });
   await fetch(`https://api.cord.com/v1/groups/${GROUP_ID}`, {

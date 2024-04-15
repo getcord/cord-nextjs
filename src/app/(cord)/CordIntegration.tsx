@@ -25,8 +25,8 @@ const CordIntegration = ({
               to get your API key.
             </li>
             <li>Create a .env file.</li>
-            <li>Paste your Cord Application ID and Secret in your .env file</li>
-            <pre>{`CORD_APP_ID=<Application ID>
+            <li>Paste your Cord Project ID and Secret in your .env file</li>
+            <pre>{`CORD_PROJECT_ID=<Project ID>
 CORD_SECRET=<Secret>`}</pre>
             <li>
               Restart your Next app<pre>npm run dev</pre>
