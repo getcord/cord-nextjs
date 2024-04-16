@@ -2,7 +2,7 @@
 
 import { CORD_USER_COOKIE, GROUP_ID } from "@/consts";
 import { LiveCursors, PagePresence, Thread } from "@cord-sdk/react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * We are adding page presence and a thread.

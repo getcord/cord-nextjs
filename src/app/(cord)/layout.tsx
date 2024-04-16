@@ -57,9 +57,9 @@ async function createAndPopulateGroup() {
 
   // creates users
   await Promise.all(
-    USERS.map((user) => {
+    USERS.map(async (user) => {
       const userBody = JSON.stringify(user.user_details);
-      fetch(`https://api.cord.com/v1/users/${user.user_id}`, {
+      await fetch(`https://api.cord.com/v1/users/${user.user_id}`, {
         method: "PUT",
         body: userBody,
         headers: {
